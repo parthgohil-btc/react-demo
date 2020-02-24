@@ -1,12 +1,20 @@
 import axios from 'axios';
 
-export const signup = ( email, password ) => {
+export const signup = ( email, password, profileImage ) => {
     return dispatch => {
-        const authData = {
-            email: email,
-            password: password
+        const formData = new FormData();
+        // formData.append("file1", event.target.files[0])
+        formData.append("file1", profileImage);
+        formData.append("email", email);
+        formData.append("password", password);
+        console.log(JSON.stringify(formData));
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         }
-        axios.post("http://localhost/reactapi/auth/signup", authData)
+
+        axios.post("http://localhost/reactapi/auth/signup", formData, config)
             .then(response => {
                 if(response.data.success) {
                     dispatch(signupsuccess(true));

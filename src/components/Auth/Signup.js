@@ -13,14 +13,20 @@ class Signin extends Component {
         email: '',
         password: '',
         errors: {},
+        profileImage: '',
     }
 
     formSubmitHandler = (e) => {
         e.preventDefault();
         if(this.handleValidation()) {
-            this.props.userSignup(this.state.email, this.state.password)
+            this.props.userSignup(this.state.email, this.state.password, this.state.profileImage)
         }
     }
+
+    fileStateHandler = e => {
+        this.setState({profileImage: e.target.files[0]});
+    }
+
     inputStateHandler = (e, key) => {
         const newInputStateVal = {}
         newInputStateVal[key] = e.target.value;
@@ -55,7 +61,7 @@ class Signin extends Component {
 
        this.setState({errors: errors});
        return formIsValid;
-   }
+    }
     render() {
         let signupError = '';
         if(this.props.signupError) {
@@ -81,6 +87,10 @@ class Signin extends Component {
                 <form onSubmit={this.formSubmitHandler}>
                     <div className="form-group">
                         <Label for="email">Email address</Label>
+                        <input type="file" id="file1" onChange={this.fileStateHandler} />
+                    </div>
+                    <div className="form-group">
+                        <Label for="email">Email address</Label>
                         <Input type="text" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" defaultValue={this.state.email} onChange={(event) => this.inputStateHandler(event, 'email')} />
                     </div>
                     <div className="form-group">
@@ -104,7 +114,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        userSignup: (email, password) => dispatch(actionCreators.signup(email, password))
+        userSignup: (email, password, profileImage) => dispatch(actionCreators.signup(email, password, profileImage))
     }
 }
 
