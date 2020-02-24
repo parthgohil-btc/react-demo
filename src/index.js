@@ -8,8 +8,6 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './store/reducers/reducer';
 
-// import { Redirect } from 'react-router-dom';
-
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({

@@ -1,3 +1,5 @@
+import { updateObject } from '../../shared/utility'
+
 const initialState = {
 	userId: '',
 	token: '',
@@ -7,27 +9,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	if(action.type === 'AUTHFAIL') {
-		const updateState = {};
-		updateState['authError'] = action.error;
-		return {
-			...state,
-			...updateState
-		}
+		return updateObject(state, {authError: action.error});
 	} else if(action.type === 'SIGNUPSUCCESS') {
-		const updateState = {};
-		updateState['signupSuccess'] = action.signupStatus;
-		return {
-			...state,
-			...updateState
-		}
+		return updateObject(state, {signupSuccess: action.signupStatus});
 	} else if(action.type === 'SETUSERID') {
-		const updateState = {};
-		updateState['userid'] = action.userId;
-		return {
-			...state,
-			...updateState
-		}
-
+		return updateObject(state, {userid: action.userId});
 	}
 	return state;
 }
